@@ -1,9 +1,15 @@
-name: Build Plugin
-on: [push, workflow_dispatch]
+name: Build and Release Plugin
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -14,16 +20,17 @@ jobs:
           distribution: 'zulu'
           java-version: '21'
 
-      - name: Validate Gradle Wrapper
-        uses: gradle/actions/wrapper-validation@v3
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
 
       - name: Build with Gradle
-        run: |
-          gradle wrapper
-          ./gradlew build
+        run: gradle build
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
         with:
-          name: PaperParkour-Jar
-          path: build/libs/*.jar
+          files: build/libs/*.jar
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          draft: false
+          prerelease: false
