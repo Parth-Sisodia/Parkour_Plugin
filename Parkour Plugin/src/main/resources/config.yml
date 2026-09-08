@@ -1,3 +1,0 @@
-# Change the material type of the checkpoint block here.
-# Must be a valid Spigot/Paper Material name (e.g., GOLD_BLOCK, HEAVY_CORE).
-checkpoint-block: "GOLD_BLOCK"
