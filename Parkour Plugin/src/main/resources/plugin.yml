@@ -1,0 +1,23 @@
+name: PaperParkour
+version: 26.1.2
+main: com.parkour.plugin.Main
+api-version: '1.21'
+commands:
+  parkour:
+    description: Opens the parkour management interface GUI.
+    permission: parkour.use
+    usage: /<command>
+  discord:
+    description: Sends a clickable link to our Discord server.
+    permission: parkour.discord
+    usage: /<command>
+permissions:
+  parkour.use:
+    description: Allows opening the parkour menu GUI.
+    default: true
+  parkour.discord:
+    description: Allows using the /discord command.
+    default: true
+  luckperms.parkour.checkpoint:
+    description: Required permission via LuckPerms to trigger the custom checkpoints.
+    default: op
